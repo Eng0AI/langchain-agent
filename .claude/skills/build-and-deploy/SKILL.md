@@ -1,41 +1,43 @@
 ---
 name: build-and-deploy
-description: Build and deploy this Next.js LangChain agent application. Use when building, deploying, or preparing the project for production. Triggers on requests to build, deploy, or publish.
+description: Build and deploy this Next.js LangChain agent application. Use when building, deploying, or preparing the project for production.
 ---
 
 # Build and Deploy LangChain Agent
 
 ## Overview
 
-Build and deploy the LangChain.js agent application. This Next.js project provides an AI-powered conversational agent with access to tools like search and calculator, powered by LangGraph.
-
-## Environment Variables
-
-All required environment variables are pre-configured in CCVM and available directly:
-- `OPENAI_API_KEY` - OpenAI API key for the LLM
-- `SERPAPI_API_KEY` - SerpAPI key for search functionality
-- `VERCEL_TOKEN` - For Vercel CLI authentication
-- `NETLIFY_AUTH_TOKEN` - For Netlify CLI authentication
+Build and deploy the LangChain.js agent application. This Next.js project provides an AI agent with tools (search engine and calculator) powered by LangGraph.
 
 ## Workflow
 
 ### 1. Setup Environment Variables
 
+**Read `.env.example` to see all required variables:**
+
 ```bash
-cp .env.example .env
+cat .env.example
 ```
 
-Then populate `.env` with values from environment:
-- `OPENAI_API_KEY` - Available as `$OPENAI_API_KEY` in VM environment
-- `SERPAPI_API_KEY` - Available as `$SERPAPI_API_KEY` in VM environment
+**Create `.env` by reading values from current environment:**
 
-Example:
+For each variable in `.env.example`, read the value from the current environment and write to `.env`. Example approach:
+
 ```bash
-cat > .env << EOF
-OPENAI_API_KEY="${OPENAI_API_KEY}"
-SERPAPI_API_KEY="${SERPAPI_API_KEY:-}"
-EOF
+# Read .env.example and create .env with values from current environment
+while IFS= read -r line || [[ -n "$line" ]]; do
+  # Skip comments and empty lines
+  [[ "$line" =~ ^#.*$ || -z "$line" ]] && continue
+  # Extract variable name (before = sign)
+  var_name=$(echo "$line" | cut -d'=' -f1)
+  # Get value from environment
+  var_value="${!var_name}"
+  # Write to .env
+  echo "${var_name}=${var_value}" >> .env
+done < .env.example
 ```
+
+Or manually inspect `.env.example` and create `.env` with the required values from environment variables.
 
 ### 2. Install Dependencies
 
@@ -67,14 +69,13 @@ netlify deploy --prod
 
 ## Critical Notes
 
-- **API Keys Required:** Requires OpenAI API key for LLM functionality
-- **Search Tool:** SerpAPI key optional but needed for search functionality
+- **Environment Variables:** All values come from current environment - inspect `.env.example` for required variables
+- **LLM Provider:** Supports OpenAI, Anthropic, and Google - set LLM_PROVIDER accordingly
 - **No Dev Server:** Never run `yarn dev` in VM environment
 
 ## Features
 
-- LangChain.js agent with tool calling
-- LangGraph for agent orchestration
+- AI agent with tool calling via LangGraph
 - Calculator and search engine tools
 - Streaming responses with Vercel AI SDK
-- Intermediate steps visualization
+- Multi-provider LLM support
