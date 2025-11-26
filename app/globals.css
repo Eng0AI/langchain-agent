@@ -26,8 +26,7 @@
     --radius: 0.5rem;
   }
 
-  @media (prefers-color-scheme: dark) {
-    :root {
+  .dark {
       --background: 224 71% 4%;
       --foreground: 213 31% 91%;
       --muted: 223 47% 11%;
@@ -47,7 +46,6 @@
       --destructive: 0 63% 31%;
       --destructive-foreground: 210 40% 98%;
       --ring: 216 34% 17%;
-    }
   }
 }
 
