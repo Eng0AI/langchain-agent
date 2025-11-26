@@ -5,10 +5,6 @@ description: Build and deploy this Next.js LangChain agent application. Use when
 
 # Build and Deploy LangChain Agent
 
-## Overview
-
-Build and deploy the LangChain.js agent application. This Next.js project provides an AI agent with tools (search engine and calculator) powered by LangGraph.
-
 ## Workflow
 
 ### 1. Setup Environment Variables
@@ -82,10 +78,3 @@ netlify deploy --prod
 - **Environment Variables:** All values come from current environment - inspect `.env.example` for required variables
 - **LLM Provider:** Supports OpenAI, Anthropic, and Google - set LLM_PROVIDER accordingly
 - **No Dev Server:** Never run `yarn dev` in VM environment
-
-## Features
-
-- AI agent with tool calling via LangGraph
-- Calculator and search engine tools
-- Streaming responses with Vercel AI SDK
-- Multi-provider LLM support
