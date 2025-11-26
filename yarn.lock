@@ -5740,9 +5740,9 @@ __metadata:
   linkType: hard
 
 "proc-log@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "proc-log@npm:6.0.0"
-  checksum: 005a2aa24b8cbc98ca24fc49ccbdbbefb1f7932fcc96664e1008c59459ea66e8cc8bd463716d6c67e39327d45e8e080eb73bf32be70461425593b0f0d6acb91f
+  version: 6.1.0
+  resolution: "proc-log@npm:6.1.0"
+  checksum: ac450ff8244e95b0c9935b52d629fef92ae69b7e39aea19972a8234259614d644402dd62ce9cb094f4a637d8a4514cba90c1456ad785a40ad5b64d502875a817
   languageName: node
   linkType: hard
 
