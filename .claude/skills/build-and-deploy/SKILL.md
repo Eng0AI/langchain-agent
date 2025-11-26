@@ -5,6 +5,9 @@ description: Build and deploy this Next.js LangChain agent application. Use when
 
 # Build and Deploy LangChain Agent
 
+> **CRITICAL: For Vercel, you MUST use `vercel build --prod` then `vercel deploy --prebuilt --prod`.**
+> Do NOT use `vercel --prod` or `vercel deploy --prod` directly - these will fail due to Git author permission issues in VM environments.
+
 ## Workflow
 
 ### 1. Setup Environment Variables
@@ -75,6 +78,7 @@ netlify deploy --prod
 
 ## Critical Notes
 
+- **VERCEL PREBUILT MODE IS MANDATORY:** Always use `vercel build --prod` followed by `vercel deploy --prebuilt --prod`. Never use `vercel --prod` or `vercel deploy --prod` without `--prebuilt` flag.
 - **Environment Variables:** All values come from current environment - inspect `.env.example` for required variables
 - **LLM Provider:** Supports OpenAI, Anthropic, and Google - set LLM_PROVIDER accordingly
 - **No Dev Server:** Never run `yarn dev` in VM environment
