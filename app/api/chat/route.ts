@@ -13,7 +13,7 @@ import {
   SystemMessage,
 } from "@langchain/core/messages";
 
-export const runtime = "edge";
+export const runtime = "nodejs";
 
 const convertVercelMessageToLangChainMessage = (message: VercelChatMessage) => {
   if (message.role === "user") {
@@ -62,9 +62,12 @@ export async function POST(req: NextRequest) {
       )
       .map(convertVercelMessageToLangChainMessage);
 
-    // Requires process.env.SERPAPI_API_KEY to be set: https://serpapi.com/
-    // You can remove this or use a different tool instead.
-    const tools = [new Calculator(), new SerpAPI()];
+    // Calculator is always available
+    const tools: (Calculator | SerpAPI)[] = [new Calculator()];
+    // SerpAPI requires SERPAPI_API_KEY to be set: https://serpapi.com/
+    if (process.env.SERPAPI_API_KEY) {
+      tools.push(new SerpAPI());
+    }
     const chat = getChatModel({ temperature: 0 });
 
     /**
